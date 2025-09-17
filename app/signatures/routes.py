@@ -2,7 +2,6 @@
 import base64
 import traceback
 from flask import request, jsonify, current_app
-
 from . import signatures_bp
 from .service import preparar_pdf_logic, finalizar_assinatura_logic
 from ..config import Config
