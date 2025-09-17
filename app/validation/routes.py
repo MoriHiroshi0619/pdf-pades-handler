@@ -73,7 +73,7 @@ def validar_pades():
             status = validation.validate_pdf_signature(sig, signer_validation_context=Config.VC, skip_diff=True)
 
             validation_results.append({
-                'nome_assinante': getattr(sig.signer_cert, 'subject', None) and sig.signer_cert.subject.human_friendly,
+                'nome_assinante': getattr(sig.signer_cert, 'subject', None) and sig.signer_cert.subject.native.get("common_name"),
                 'timestamp': getattr(status, 'signer_reported_dt', None),
                 'valido': bool(getattr(status, 'valid', False)),
                 'intacto': bool(getattr(status, 'intact', None)),
@@ -133,7 +133,7 @@ def comparar_assinatura():
             'assinado': True,
             'assinaturas_totais': len(original_signatures),
             'original_multi': original_multi,
-            'nome_assinante': getattr(ref_sig.signer_cert, 'subject', None) and ref_sig.signer_cert.subject.human_friendly,
+            'nome_assinante': getattr(ref_sig.signer_cert, 'subject', None) and ref_sig.signer_cert.subject.native.get("common_name"),
             'valido': bool(getattr(orig_status, 'valid', False)) if orig_status is not None else None,
             'intacto': bool(getattr(orig_status, 'intact', False)) if orig_status is not None else None,
             'md_algorithm': orig_md_algo,
@@ -180,7 +180,7 @@ def comparar_assinatura():
                 any_match = True
 
             results.append({
-                'nome_assinante': getattr(sig.signer_cert, 'subject', None) and sig.signer_cert.subject.human_friendly,
+                'nome_assinante': getattr(sig.signer_cert, 'subject', None) and sig.signer_cert.subject.native.get("common_name"),
                 'valido': bool(getattr(st, 'valid', False)) if st is not None else None,
                 'intacto': bool(getattr(st, 'intact', False)) if st is not None else None,
                 'md_algorithm': md_algo,
