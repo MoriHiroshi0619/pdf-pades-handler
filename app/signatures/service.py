@@ -12,10 +12,6 @@ from pyhanko.sign.signers.pdf_signer import PdfTBSDocument
 from ..utils import run_sync
 
 def preparar_pdf_logic(pdf_b64: str, field_name: str, bytes_reserved: int, md_algo: str, subfilter):
-    """
-    Lógica extraída do endpoint /preparar-pdf.
-    Retorna (prepared_pdf_bytes, digest_bytes, pickled_payload, field_name, bytes_reserved)
-    """
     pdf_bytes = base64.b64decode(pdf_b64)
 
     buf_in = io.BytesIO(pdf_bytes)
@@ -40,7 +36,7 @@ def preparar_pdf_logic(pdf_b64: str, field_name: str, bytes_reserved: int, md_al
     )
     pdf_signer = signers.PdfSigner(meta, signer=ext_signer)
 
-    result = run_sync(pdf_signer.digest_doc_for_signing(
+    result = run_sync(pdf_signer.async_digest_doc_for_signing(
         pdf_out=writer,
         bytes_reserved=bytes_reserved,
         in_place=False
@@ -54,17 +50,12 @@ def preparar_pdf_logic(pdf_b64: str, field_name: str, bytes_reserved: int, md_al
         "prepared_digest": prepared_digest,
         "post_sign_instr": getattr(tbs_document, "post_sign_instructions", None)
     }
-    # ATENÇÃO: estamos usando pickle por decisão do usuário (consumo interno)
     pickled = pickle.dumps(payload, protocol=pickle.HIGHEST_PROTOCOL)
 
     return prepared_pdf_bytes, prepared_digest.document_digest, pickled, field_name, bytes_reserved
 
 
 def finalizar_assinatura_logic(prepared_pdf_b64: str, prepared_digest_pickled_b64: str, p7s_b64: str):
-    """
-    Lógica do endpoint /finalizar-assinatura
-    Retorna final_pdf_bytes
-    """
     prepared_pdf_bytes = base64.b64decode(prepared_pdf_b64)
     pickled = base64.b64decode(prepared_digest_pickled_b64)
     stored = pickle.loads(pickled)
