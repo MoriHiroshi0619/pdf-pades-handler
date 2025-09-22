@@ -9,19 +9,19 @@ também é possivel validar a integridade de PAdEs além de comparar dois PAdEs 
 #### Passos
 - clone o projeto via
 ```bash
-git clone
+  git clone git@github.com:MoriHiroshi0619/pdf-pades-maker.git
 ```
 - copie o env 
 ```bash
-cp .env.example .env
+  cp .env.example .env
 ```
 - copie o docker compose 
 ```bash
-cp docker-compose.yml.example docker-compose.yml
+  cp docker-compose.yml.example docker-compose.yml
 ```
 - builde o container 
 ```bash
-docker compose up -d --build
+  docker compose up -d --build
 ```
 - Feito isso a API deverá estar pronta para uso
 
