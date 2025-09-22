@@ -1,6 +1,6 @@
 # app/signatures/__init__.py
 from flask import Blueprint
 
-signatures_bp = Blueprint("signatures", __name__)
+health_bp = Blueprint("health", __name__)
 
 from . import routes
