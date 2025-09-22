@@ -2,9 +2,6 @@
 import io
 import base64
 import pickle
-import time
-import traceback
-
 from pyhanko.pdf_utils.incremental_writer import IncrementalPdfFileWriter
 from pyhanko.sign import signers, fields
 from pyhanko.sign.signers.pdf_signer import PdfTBSDocument

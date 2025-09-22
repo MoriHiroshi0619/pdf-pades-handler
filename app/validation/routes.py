@@ -105,7 +105,7 @@ def comparar_assinatura():
             return jsonify({
                 'status': 'erro',
                 'message': 'pdf enviado para validar não contém assinaturas.',
-            }), 400
+            }), 200
 
         results = []
         any_match = False
@@ -151,6 +151,7 @@ def comparar_assinatura():
             })
 
         return jsonify({
+            'status': 'sucesso',
             'match': any_match,
             'original': original_info,
             'para_validar': {
