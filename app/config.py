@@ -9,3 +9,4 @@ class Config:
     MD_ALGO = "sha256"
     SUBFILTER = fields.SigSeedSubFilter.PADES
     VC = ValidationContext(trust_roots=[], allow_fetching=False)
+    ERROR_BYTES_INSUFFICIENT = "Final ByteRange payload larger than expected"

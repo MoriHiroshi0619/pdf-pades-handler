@@ -1,8 +1,8 @@
 # app/signatures/routes.py
 import base64
 import traceback
-from flask import request, jsonify, current_app
 import logging
+from flask import request, jsonify, current_app
 from pyhanko.sign.general import SigningError
 from . import signatures_bp
 from .service import preparar_pdf_logic, finalizar_assinatura_logic
@@ -61,12 +61,12 @@ def finalizar_assinatura():
 
     except SigningError as e:
         tb = traceback.format_exc()
-        if "Final ByteRange payload larger than expected" in str(e):
+        if Config.ERROR_BYTES_INSUFFICIENT in str(e):
             logging.error("Bytes reservados insuficientes para assinatura: " + str(e))
+            return jsonify({"message": str(e), "traceback": tb}), 507
         else:
             logging.error(tb)
-
-        return jsonify({"message": str(e), "traceback": tb}), 500
+            return jsonify({"message": str(e), "traceback": tb}), 500
 
     except Exception as e:
         tb = traceback.format_exc()
