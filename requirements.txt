@@ -3,3 +3,4 @@ pyhanko>=0.12.0
 pyhanko_certvalidator>=0.10.0
 pyOpenSSL
 cryptography
+gunicorn>=20.1.0
