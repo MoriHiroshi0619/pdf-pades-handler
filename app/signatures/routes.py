@@ -2,6 +2,7 @@
 import base64
 import traceback
 from flask import request, jsonify, current_app
+import logging
 from . import signatures_bp
 from .service import preparar_pdf_logic, finalizar_assinatura_logic
 from ..config import Config
@@ -36,6 +37,7 @@ def preparar_pdf():
 
     except Exception as e:
         tb = traceback.format_exc()
+        logging.error(tb)
         return jsonify({"message": str(e), "traceback": tb}), 500
 
 
@@ -58,4 +60,5 @@ def finalizar_assinatura():
 
     except Exception as e:
         tb = traceback.format_exc()
+        logging.error(tb)
         return jsonify({"message": str(e), "traceback": tb}), 500

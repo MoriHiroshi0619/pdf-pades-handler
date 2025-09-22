@@ -5,6 +5,7 @@ import traceback
 from flask import request, jsonify
 from pyhanko.pdf_utils.reader import PdfFileReader
 from pyhanko.sign import validation
+import logging
 from ..config import Config
 from .service import _signed_content_from_byte_range, _extract_byte_range, _canonical_sha256, _digest_with_algo
 from . import validation_bp
@@ -45,6 +46,7 @@ def validar_pades():
 
     except Exception as e:
         tb = traceback.format_exc()
+        logging.error(tb)
         return jsonify({'status': 'erro', 'message': f'Ocorreu um erro ao processar o PDF: {e}', 'traceback': tb}), 500
 
 @validation_bp.route('/comparar-assinatura', methods=['POST'])
@@ -162,4 +164,5 @@ def comparar_assinatura():
 
     except Exception as e:
         tb = traceback.format_exc()
+        logging.error(tb)
         return jsonify({'status': 'erro', 'message': f'Ocorreu um erro ao comparar assinaturas: {e}', 'traceback': tb}), 500

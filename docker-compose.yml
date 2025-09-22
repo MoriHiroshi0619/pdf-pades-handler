@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    container_name: pades-handler-api
+    env_file: .env
+    ports:
+      - "${APP_PORT}:8005"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8005/health"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
