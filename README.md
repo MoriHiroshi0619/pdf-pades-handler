@@ -9,7 +9,7 @@ também é possivel validar a integridade de PAdEs além de comparar dois PAdEs 
 #### Passos
 - clone o projeto via
 ```bash
-  git clone git@github.com:MoriHiroshi0619/pdf-pades-maker.git
+  git clone git@github.com:MoriHiroshi0619/pdf-pades-handler.git
 ```
 - copie o env 
 ```bash
