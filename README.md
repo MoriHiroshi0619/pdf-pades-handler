@@ -31,5 +31,14 @@ também é possivel validar a integridade de PAdEs além de comparar dois PAdEs 
 Por default a API rodará na porta 8015 configurada no `.env`. 
 Se precisar mudar a porta, mude a variavel de ambiente `APP_PORT` no `.env`, depois derrube e levante de novo o container docker `docker compose down & docker compose up -d`
 
+#### Teste de carga
+Para testar a carga rode o python script `load_test.py` com as seguintes flags 
+- `--host` => host da aplicação
+- `--endpoint` => use o endpoint `\heavy` para testes
+- `--n` => números de requisições que serão executadas
+- `--c` => números de concurrecy (processos)
+```
+  python load_test.py --host http://127.0.0.1:8015 --endpoint /heavy --n 100 --c 3
+```
 
 
