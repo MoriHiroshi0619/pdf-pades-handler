@@ -1,3 +1,4 @@
+requests
 Flask>=2.2
 pyhanko>=0.12.0
 pyhanko_certvalidator>=0.10.0
